@@ -1,7 +1,6 @@
 from django.db import models
 from datetime import datetime
 from django.core.urlresolvers import reverse
-# Create your models here.
 
 class BaseModel(models.Model):
     id = models.AutoField(primary_key=True)
@@ -11,17 +10,10 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
-class TimeRanges(BaseModel):
-    started_at = models.DateTimeField()
-    finished_at = models.DateTimeField()
-
-    def get_absolute_url(self):
-        return reverse('time_range', kwargs={'pk': self.pk})
-
 class Appointment(BaseModel):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    time_ranges = models.ManyToManyField(TimeRanges)
+
 
     def __str__(self):
         return self.name
@@ -29,6 +21,13 @@ class Appointment(BaseModel):
     def get_absolute_url(self):
         return reverse('appointment', kwargs={'pk': self.pk})
 
+class TimeRanges(BaseModel):
+    started_at = models.DateTimeField()
+    finished_at = models.DateTimeField()
+    appointments = models.ForeignKey(Appointment)
+
+    def get_absolute_url(self):
+        return reverse('time_range', kwargs={'pk': self.pk})
 
 
 class Visitors(BaseModel):

@@ -1,0 +1,43 @@
+{%extends "base.html"%}
+
+
+{% block content %}
+
+    <h2>Appointments Page</h2>
+
+    <div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for appointment in object_list %}
+      <tr>
+        <td><a href="{% url 'appointment_details' appointment.id %}">{{ appointment.name }}</a></td>
+        <td>{{ appointment.description }}</td>
+        <td>
+            <a href="{% url 'appointment_edit' appointment.id %}">
+          <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <a href="{% url 'appointment_delete' appointment.id %}">
+          <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </td>
+      </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+    <input type="button" class="btn btn-info" value="Create new appointment" onclick="location.href = '{% url 'appointment_new' %}'">
+    <input type="button" class="btn btn-info" value="Add time ranges" onclick="location.href = '{% url 'timerange_new' %}'">
+</div>
+
+
+{% endblock content %}
+
+
+

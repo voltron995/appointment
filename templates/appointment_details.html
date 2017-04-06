@@ -1,0 +1,33 @@
+{%extends "base.html"%}
+
+    {% block title %} <h2>Appointment application form</h2> {% endblock title %}
+
+{% block content %}
+<ul>
+    <p> "Name:" {{object.name}}</p>
+    <p> "Description:" {{object.description}}</p>
+
+    <br>
+
+</ul>
+    <h3> Available time ranges </h3>
+    <br>
+        {% for t in ranges %}
+    <li>
+        <p>Start time : {{t.started_at}}</p>
+        <p>End time : {{t.finished_at}}</p>
+        <br>
+    </li>
+    {% endfor %}
+
+    <form method="post" action="{% url 'timerange_new' %}">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit1" />
+    </form>
+
+    <form method="post" action="{% url 'visitor_new' %}">{% csrf_token %}
+        {{ VisitorCreate.as_p }}
+        <input type="submit" value="Submit2" />
+    </form>
+
+{% endblock content %}
