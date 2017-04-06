@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'appointments_manager',
     'bootstrap3',
     'bootstrap3_datetime',
+    'rest_framework'
+
 ]
 
 MIDDLEWARE = [
@@ -129,3 +131,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 APPEND_SLASH = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

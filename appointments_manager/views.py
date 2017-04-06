@@ -2,10 +2,10 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
+from rest_framework import generics
 from appointments_manager.forms import DateForm
 from appointments_manager.models import Appointment, TimeRanges, Visitors
-
+from appointments_manager.serializers import AppointmentSerializer
 
 class AppointmentList(ListView):
     model = Appointment
@@ -51,3 +51,10 @@ class TimeRangesCreate(CreateView):
     template_name = "range_form.html"
     success_url = reverse_lazy('appointment_details')
 
+class AppList(generics.ListCreateAPIView):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+
+class AppDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer

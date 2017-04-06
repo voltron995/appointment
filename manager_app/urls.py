@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from appointments_manager.views import AppointmentList, AppointmentDelete, AppointmentDetail, AppointentCreate, AppointmentUpdate, VisitorCreate, TimeRangesCreate
@@ -15,5 +15,7 @@ urlpatterns = [
     url(r'^appointment_delete/(?P<pk>\d+)/$', AppointmentDelete.as_view(), name='appointment_delete'),
     url(r'^visitor_new$', VisitorCreate.as_view(), name='visitor_new'),
     url(r'^timerange_new$', TimeRangesCreate.as_view(), name='timerange_new'),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^appointmnent/', include('appointments_manager.urls'))
 
 ]
