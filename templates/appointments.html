@@ -11,7 +11,9 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
+          {% if user.is_authenticated %}
         <th>Options</th>
+          {%endif%}
       </tr>
     </thead>
     <tbody>
@@ -19,6 +21,7 @@
       <tr>
         <td><a href="{% url 'appointment_details' appointment.id %}">{{ appointment.name }}</a></td>
         <td>{{ appointment.description }}</td>
+          {% if user.is_authenticated %}
         <td>
             <a href="{% url 'appointment_edit' appointment.id %}">
           <span class="glyphicon glyphicon-pencil"></span>
@@ -27,13 +30,16 @@
           <span class="glyphicon glyphicon-remove"></span>
             </a>
         </td>
+            {% endif %}
       </tr>
         {% endfor %}
 
     </tbody>
   </table>
+     {% if user.is_authenticated %}
     <input type="button" class="btn btn-info" value="Create new appointment" onclick="location.href = '{% url 'appointment_new' %}'">
     <input type="button" class="btn btn-info" value="Add time ranges" onclick="location.href = '{% url 'timerange_new' %}'">
+     {% endif %}
 </div>
 
 

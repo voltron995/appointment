@@ -8,13 +8,6 @@ urlpatterns = [
     url(r'^$', AppointmentList.as_view(), name='appointments'),
     url(r'^login/$', auth_views.login, {'template_name': 'registration/login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'template_name': 'registration/logged_out.html'}, name='logout'),
-    url(r'^appointments', AppointmentList.as_view(), name='appointments'),
-    url(r'^appointment/(?P<pk>\d+)/$', AppointmentDetail.as_view(), name='appointment_details'),
-    url(r'^appointment_new$', AppointentCreate.as_view(), name='appointment_new'),
-    url(r'^appointment_edit/(?P<pk>\d+)/$', AppointmentUpdate.as_view(), name='appointment_edit'),
-    url(r'^appointment_delete/(?P<pk>\d+)/$', AppointmentDelete.as_view(), name='appointment_delete'),
-    url(r'^visitor_new$', VisitorCreate.as_view(), name='visitor_new'),
-    url(r'^timerange_new$', TimeRangesCreate.as_view(), name='timerange_new'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^appointmnent/', include('appointments_manager.urls'))
 

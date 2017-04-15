@@ -6,6 +6,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
         model = Appointment
         fields = ('id', 'name', 'description')
 
+
 class TimeRangesSerializer(serializers.ModelSerializer):
     appointments = AppointmentSerializer()
 
@@ -20,5 +21,3 @@ class VisitorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visitors
         fields = ('id', 'full_name', 'email', 'time_ranges')
-
-

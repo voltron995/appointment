@@ -1,0 +1,12 @@
+{%extends "base.html"%}
+
+    {% block title %} <h2>Visitor details</h2> {% endblock title %}
+
+{% block content %}
+
+
+    <form id="form" method="get" action="visitor_details">{% csrf_token %}
+        {{ form.as_p }}
+    </form>
+
+{% endblock content %}
