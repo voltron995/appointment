@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from appointments_manager.views import AppointmentList, AppointmentDelete, AppointmentDetail, AppointentCreate, AppointmentUpdate, VisitorCreate, TimeRangesCreate
+from appointments_manager.views import AppointmentList
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

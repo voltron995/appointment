@@ -3,31 +3,6 @@
     {% block title %} <h2>Appointment application form</h2> {% endblock title %}
 
 {% block content %}
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.min.js"
-      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-      crossorigin="anonymous">
-    </script>
-
-<script>
-  $( document ).ready(function() {
-    var map = {
-      "ad": "g",
-      "be": "h",
-      "cf": "i"
-    };
-
-    $("#form input[name='group1'], #form input[name='group2']").on("change", function() {
-      var value1 = $("#form input[name='group1']:checked").val();
-      var value2 = $("#form input[name='group2']:checked").val();
-
-      if(value1 && value2) {
-        var result = value1 + value2;
-        $("#form input[value=" + map[result] + "]").prop('checked',true);
-      }
-    })
-  });
-</script>
 
 <ul>
     <p> "Name:" {{object.name}}</p>
@@ -37,25 +12,29 @@
 
 </ul>
     <h3> Available time ranges </h3>
-     <div class="row">
+    <form id="radio_form">
+    <div class="row">
           <div class="col-sm-4">
-              Date:
-     {% for d in date %}
-            <div class="radio">
-              <label><input type="radio" name="group1">{{ d }}</label>
-            </div>
-    {% endfor %}
+          Date:
+      {% for d in date %}
+        <div class="radio_date">
+          <input type="radio" name="dates" value="{{ d.id }}" />
+          <label>{{ d.value }}</label>
+        </div>
+      {% endfor %}
           </div>
+       <div class="col-sm-4">
+       Time:
+      {% for t in time %}
+      <div class="radio_time">
+        <input type="radio" name="times" value="{{ t.id }}" data-date-id="{{ t.date_id }}" />
+        <label>{{ t.value }}</label>
+      </div>
+      {% endfor %}
+       </div>
+    </div>
+    </form>
 
-          <div class="col-sm-4">
-              Time:
-     {% for t in time %}
-            <div class="radio">
-              <label><input type="radio" name="group2">{{ t }}</label>
-            </div>
-     {% endfor %}
-          </div>
-</div>
 
     <form id="form" method="post" action="visitor_new">{% csrf_token %}
         <h3>Personal Information</h3>

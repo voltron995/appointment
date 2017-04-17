@@ -48,32 +48,28 @@ class AppointmentDetail(DetailView):
         setobj = TimeRanges.objects.filter(appointments_id=self.object.id)
         day = []
         time = []
+        current_id = 0
         for obj in setobj:
             start_str = str(obj.started_at).split('+')[0]
             finish_str = str(obj.finished_at).split('+')[0]
             s = datetime.strptime(start_str, '%Y-%m-%d %H:%M:%S')
             f = datetime.strptime(finish_str, '%Y-%m-%d %H:%M:%S')
             if f.date() == s.date():
+                current_id += 1
                 day_string = s.strftime('%Y-%m-%d')
-                day.append(day_string)
+                date_dict = {'id': obj.id, 'value': day_string}
+                day.append(date_dict)
                 time1 = s.strftime('%H:%M')
                 time2 = f.strftime('%H:%M')
                 time_abs = time1 + '-' + time2
-                time.append(time_abs)
+                time_dict = {'id': current_id, 'date_id': obj.id, 'value': time_abs}
+                time.append(time_dict)
 
-        # time_ranges = zip(time, time)
-        # date_ranges = zip(day, day)
-        # form = VisitorsForm(date_ranges, time_ranges)
+        time_ranges = setobj
         context['date'] = day
         context['time'] = time
-        context['form'] = VisitorsForm
+        context['form'] = VisitorsForm(time_ranges)
         return context
-
-    # def get(self, request, *args, **kwargs):
-    #
-    #     form = VisitorsForm
-    #
-    #     return render(request, self.template_name, {'form': form})
 
 
 class VisitorCreate(SuccessMessageMixin, CreateView):

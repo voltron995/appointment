@@ -10,8 +10,10 @@ class DateForm(forms.ModelForm):
         model = TimeRanges
         fields = ['started_at', 'finished_at']
 
-    started_at = forms.DateTimeField(required=True, widget=DateTimePicker)
-    finished_at = forms.DateTimeField(required=True, widget=DateTimePicker)
+        widgets = {
+            'started_at': forms.DateInput(attrs={'class' : 'datetimepicker'}),
+            'finished_at': forms.DateInput(attrs={'class' : 'datetimepicker'}),
+        }
 
 class VisitorsForm(forms.ModelForm):
     class Meta:
@@ -20,7 +22,10 @@ class VisitorsForm(forms.ModelForm):
 
     full_name = forms.CharField(required=True, widget=forms.TextInput),
     email = forms.EmailField(required=True, widget=forms.EmailInput),
-    time_ranges = forms.ModelChoiceField(queryset=TimeRanges.objects.filter(id=1))
+
+    def __init__(self, time_ranges, *args, **kwargs):
+        super(VisitorsForm, self).__init__(*args, **kwargs)
+        self.fields['time_ranges'].choises = time_ranges
 
 
 
