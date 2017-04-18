@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -44,7 +45,7 @@ class AppointmentDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(AppointmentDetail, self).get_context_data(**kwargs)
-        setobj = TimeRanges.objects.filter(appointments_id=self.object.id)
+        setobj = TimeRanges.objects.filter(appointments=self.object)
         day = []
         time = []
         current_id = 0
@@ -64,10 +65,11 @@ class AppointmentDetail(DetailView):
                 time_dict = {'id': current_id, 'date_id': obj.id, 'value': time_abs}
                 time.append(time_dict)
 
-        time_ranges = setobj
+        setobj2 = Appointment.objects.filter(id=self.object.id)
+
         context['date'] = day
         context['time'] = time
-        context['form'] = VisitorsForm(time_ranges)
+        context['form'] = VisitorsForm(setobj, setobj2)
         return context
 
 
@@ -75,16 +77,14 @@ class VisitorCreate(CreateView):
     model = Visitors
     template_name = "appointment_details.html"
     form_class = VisitorsForm
-    success_url = reverse_lazy('appointments')
+    success_url = reverse_lazy('success')
 
-    # def post(self, request, *args, **kwargs):
-    #     form = self.form_class(kwargs, request.POST)
-    #     print(request.POST)
-    #     if form.is_valid():
-    #         print('*********')
-    #         form = form.save()
-    #
-    #     return render(request, self.success_url, {'form': form})
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST['time_ranges'], request.POST['appointments'], request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+
+        return render(request, 'success.html', {'form': form})
 
 
 class VisitortDetail(DetailView):

@@ -44,7 +44,17 @@
         $("#id_time_ranges").val(time_id);
       }
     };
-    
+
+    var setAppointmentsId = function() {
+        $("#id_appointments").val($("#id_appointments option:eq(1)").val());
+    };
+
+    var hideFields = function(){
+    $('#id_time_ranges').hide();
+    $('#id_appointments').hide();
+    // and then the on-click stuff...
+    };
+
     resetTimeInputs();
     
     $("#radio_form input[name='dates']")
@@ -52,4 +62,9 @@
 
     $("#radio_form input[name='times']")
       .on("change", function() { set_time_range(); });
+
+    setAppointmentsId();
+
+    hideFields();
+
   });

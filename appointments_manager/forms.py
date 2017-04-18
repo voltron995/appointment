@@ -11,21 +11,22 @@ class DateForm(forms.ModelForm):
         fields = ['started_at', 'finished_at']
 
         widgets = {
-            'started_at': forms.DateInput(attrs={'class' : 'datetimepicker'}),
-            'finished_at': forms.DateInput(attrs={'class' : 'datetimepicker'}),
+            'started_at': forms.DateInput(attrs={'class': 'datetimepicker'}),
+            'finished_at': forms.DateInput(attrs={'class': 'datetimepicker'}),
         }
 
 class VisitorsForm(forms.ModelForm):
     class Meta:
         model = Visitors
-        fields = ['full_name', 'time_ranges', 'email']
-        exclude = ['appointments']
+        fields = ['full_name', 'time_ranges', 'email', 'appointments']
     full_name = forms.CharField(required=True, widget=forms.TextInput),
     email = forms.EmailField(required=True, widget=forms.EmailInput),
 
-    def __init__(self, time_ranges, *args, **kwargs):
+    def __init__(self, time_ranges, appointments, *args, **kwargs):
         super(VisitorsForm, self).__init__(*args, **kwargs)
         self.fields['time_ranges'].choises = time_ranges
+        self.fields['appointments'].choises = appointments
+
 
 
 

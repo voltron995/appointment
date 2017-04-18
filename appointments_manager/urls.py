@@ -9,7 +9,7 @@ urlpatterns = [
   url(r'^appointment_new/$', views.AppointentCreate.as_view(), name='appointment_new'),
   url(r'^appointment_edit/(?P<pk>\d+)/$', views.AppointmentUpdate.as_view(), name='appointment_edit'),
   url(r'^appointment_delete/(?P<pk>\d+)/$', views.AppointmentDelete.as_view(), name='appointment_delete'),
-  url(r'^appointments$', views.VisitorCreate.as_view(), name='visitor_new'),
+  url(r'^visitor', views.VisitorCreate.as_view(), name='visitor_new'),
   url(r'^visitor_form_list/(?P<pk>[0-9]+)/$', views.VisitorFilledFormsList.as_view(), name='visitor_form_list'),
   url(r'^timerange_new$', views.TimeRangesCreate.as_view(), name='timerange_new'),
   url(r'^api/$', views.AppList.as_view()),
