@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, {'template_name': 'registration/login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'template_name': 'registration/logged_out.html'}, name='logout'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^appointmnent/', include('appointments_manager.urls'))
+    url(r'^appointmnent/', include('appointments_manager.urls')),
+    url('^accounts/', include('django.contrib.auth.urls'))
 
 ]

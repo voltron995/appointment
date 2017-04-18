@@ -1,0 +1,17 @@
+{%extends "base.html"%}
+
+    {% block title %} <h1> List of filled visitor forms</h1> {% endblock title %}
+
+{% block content %}
+<ul>
+    {% for visitor in object_list %}
+       <ul>
+        <p> "Full Name:" {{visitor.full_name}}</p>
+        <p> "Email:" {{visitor.email}}</p>
+        <p> "Time when visit:" {{visitor.time_ranges.started_at}} - {{visitor.time_ranges.finished_at}}</p>
+           <br>
+        </ul>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

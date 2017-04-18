@@ -12,6 +12,7 @@
         <th>Name</th>
         <th>Description</th>
           {% if user.is_authenticated %}
+        <th>Filled forms</th>
         <th>Options</th>
           {%endif%}
       </tr>
@@ -22,6 +23,9 @@
         <td><a href="{% url 'appointment_details' appointment.id %}">{{ appointment.name }}</a></td>
         <td>{{ appointment.description }}</td>
           {% if user.is_authenticated %}
+        <td><a href="{% url 'visitor_form_list' appointment.id %}">
+          <span class="glyphicon glyphicon-list-alt"></span></a>
+        </td>
         <td>
             <a href="{% url 'appointment_edit' appointment.id %}">
           <span class="glyphicon glyphicon-pencil"></span>

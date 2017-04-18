@@ -1,8 +1,7 @@
 from datetime import datetime
-from django.core.urlresolvers import reverse_lazy, reverse
-from django.contrib.messages.views import SuccessMessageMixin
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -72,19 +71,20 @@ class AppointmentDetail(DetailView):
         return context
 
 
-class VisitorCreate(SuccessMessageMixin, CreateView):
+class VisitorCreate(CreateView):
     model = Visitors
     template_name = "appointment_details.html"
-    success_url = reverse_lazy("visitor_new")
     form_class = VisitorsForm
+    success_url = reverse_lazy('appointments')
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-
-        if form.is_valid():
-            form = form.save()
-
-        return HttpResponseRedirect(reverse('appointments'))
+    # def post(self, request, *args, **kwargs):
+    #     form = self.form_class(kwargs, request.POST)
+    #     print(request.POST)
+    #     if form.is_valid():
+    #         print('*********')
+    #         form = form.save()
+    #
+    #     return render(request, self.success_url, {'form': form})
 
 
 class VisitortDetail(DetailView):
@@ -92,6 +92,16 @@ class VisitortDetail(DetailView):
     template_name = "visitor_details.html"
     success_url = reverse_lazy('appointments')
 
+
+class VisitorFilledFormsList(LoginRequiredMixin, ListView):
+    model = Visitors
+    template_name = "visitor_filled_forms.html"
+    success_url = reverse_lazy('appointments')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(VisitorFilledFormsList, self).get_context_data(**kwargs)
+        context['object_list'] = self.object_list.filter(appointments=self.kwargs['pk'])
+        return context
 
 class TimeRangesCreate(CreateView):
     model = TimeRanges

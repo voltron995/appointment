@@ -19,7 +19,7 @@ class VisitorsForm(forms.ModelForm):
     class Meta:
         model = Visitors
         fields = ['full_name', 'time_ranges', 'email']
-
+        exclude = ['appointments']
     full_name = forms.CharField(required=True, widget=forms.TextInput),
     email = forms.EmailField(required=True, widget=forms.EmailInput),
 

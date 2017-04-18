@@ -34,6 +34,7 @@ class Visitors(BaseModel):
     full_name = models.CharField(max_length=100)
     email = models.EmailField()
     time_ranges = models.ForeignKey(TimeRanges)
+    appointments = models.ForeignKey(Appointment)
 
     def __str__(self):
         return self.full_name

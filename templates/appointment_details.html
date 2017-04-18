@@ -36,7 +36,7 @@
     </form>
 
 
-    <form id="form" method="post" action="visitor_new">{% csrf_token %}
+    <form id="form" method="post" action="{% url 'visitor_new' %}"> {% csrf_token %}
         <h3>Personal Information</h3>
         <p>{{ form.full_name.label }} {{ form.full_name }}</p>
         <p>{{ form.email.label }} {{ form.email }}</p>
