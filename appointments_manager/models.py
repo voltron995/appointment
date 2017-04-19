@@ -22,8 +22,8 @@ class Appointment(BaseModel):
         return reverse('appointment', kwargs={'pk': self.pk})
 
 class TimeRanges(BaseModel):
-    started_at = models.DateTimeField()
-    finished_at = models.DateTimeField()
+    started_at = models.DateTimeField(auto_now=False, null=True, blank=True)
+    finished_at = models.DateTimeField(auto_now=False, null=True, blank=True)
     appointments = models.ForeignKey(Appointment)
 
     def get_absolute_url(self):
@@ -42,14 +42,3 @@ class Visitors(BaseModel):
     def get_absolute_url(self):
         return reverse('visitor', kwargs={'pk': self.pk})
 
-class Users(BaseModel):
-    login = models.CharField(unique=True, max_length=100)
-    password_hash = models.CharField(unique=True, max_length=200)
-    is_registered = models.BooleanField(default=False)
-    appointments = models.ManyToManyField(Appointment)
-
-    def __str__(self):
-        return self.login
-
-    def get_absolute_url(self):
-        return reverse('user', kwargs={'pk': self.pk})

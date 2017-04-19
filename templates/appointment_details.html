@@ -2,6 +2,10 @@
 
     {% block title %} <h2>Appointment application form</h2> {% endblock title %}
 
+    <script>
+
+    </script>
+
 {% block content %}
 
 <ul>
@@ -41,9 +45,9 @@
         <p>{{ form.full_name.label }} {{ form.full_name }}</p>
         <p>{{ form.email.label }} {{ form.email }}</p>
         <p> {{ form.time_ranges }}</p>
-        <p> {{ form.appointments }}</p>
+        <p id="appointments_id"> {{ form.appointments }}</p>
 
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Save" />
     </form>
 
 {% endblock content %}

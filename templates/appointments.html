@@ -23,7 +23,7 @@
         <td><a href="{% url 'appointment_details' appointment.id %}">{{ appointment.name }}</a></td>
         <td>{{ appointment.description }}</td>
           {% if user.is_authenticated %}
-        <td><a href="{% url 'visitor_form_list' appointment.id %}">
+        <td><a href="{% url 'visitors' appointment.id %}">
           <span class="glyphicon glyphicon-list-alt"></span></a>
         </td>
         <td>
